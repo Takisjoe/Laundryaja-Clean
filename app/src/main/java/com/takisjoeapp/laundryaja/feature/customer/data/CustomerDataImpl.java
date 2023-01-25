@@ -1,45 +1,64 @@
 package com.takisjoeapp.laundryaja.feature.customer.data;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.takisjoeapp.laundryaja.feature.customer.data.database.FirebaseCustomerData;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.takisjoeapp.laundryaja.feature.customer.data.database.FirestoreCustomerData;
 import com.takisjoeapp.laundryaja.feature.customer.data.database.PreferencesCustomerData;
 import com.takisjoeapp.laundryaja.feature.customer.data.database.RoomCustomerData;
 import com.takisjoeapp.laundryaja.feature.customer.domain.entitas.Customer;
+import com.takisjoeapp.laundryaja.feature.customer.helper.CustomerBuilder;
 import com.takisjoeapp.laundryaja.util.servicelocator.ServiceLocator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.PreferenceChangeEvent;
 
-public class CustomerDataImpl implements CustomerData{
-    private FirebaseCustomerData firebaseCustomerData;
+public class CustomerDataImpl implements CustomerData {
+    private FirestoreCustomerData firestoreCustomerData;
     private PreferencesCustomerData preferencesCustomerData;
     private RoomCustomerData roomCustomerData;
-    private Context context; 
+    private Context context;
 
     private final List<Customer> customerList;
 
     public CustomerDataImpl() {
         customerList = new ArrayList<>();
-        firebaseCustomerData = new FirebaseCustomerData();
+        firestoreCustomerData = new FirestoreCustomerData();
         preferencesCustomerData = new PreferencesCustomerData();
         roomCustomerData = new RoomCustomerData();
         context = ServiceLocator.getService("addCustomer");
+        context = ServiceLocator.getService("mainCustomer");
     }
 
     @Override
     public boolean create(Customer customer) {
-        for (Customer cust: customerList) {
-            if (cust.getId().equals(customer.getId())){
+        for (Customer cust : customerList) {
+            if (cust.getId().equals(customer.getId())) {
                 return false;
             }
         }
-        customerList.add(customer);
 
         //TODO: implementasi untuk menambahkan data customer ke dalam database dengan memastikan bahwa ID yang diinputkan tidak sama dengan ID yang sudah ada dalam database
-        Toast.makeText(context, "Ditambahkan - "+customerList.size(), Toast.LENGTH_SHORT).show();
+        firestoreCustomerData.addCustomer(customer).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                customerList.add(customer);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
         return true;
     }
 
@@ -69,8 +88,29 @@ public class CustomerDataImpl implements CustomerData{
     }
 
     @Override
-    public List<Customer> read() {
-        //TODO: implementasi untuk mengambil seluruh data customer dari dalam database
-        return customerList;
+    public LiveData<List<Customer>> read() {
+//        customerList.clear();
+        MutableLiveData liveData = new MutableLiveData(customerList);
+
+        firestoreCustomerData.getAllCustomer().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                customerList.clear();
+                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    Customer customer = documentSnapshot.toObject(Customer.class);
+                    System.out.println(customer.getName());
+                    customerList.add(customer);
+                }
+                liveData.setValue(customerList);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("Firebase Error", e.getMessage());
+            }
+        });
+        System.out.print("Memanggil read (CustomerDataImpl) {"+customerList+"} -> ");
+
+        return liveData;
     }
 }

@@ -1,5 +1,7 @@
 package com.takisjoeapp.laundryaja.feature.customer.data;
 
+import androidx.lifecycle.LiveData;
+
 import com.takisjoeapp.laundryaja.feature.customer.domain.entitas.Customer;
 
 import java.util.List;
@@ -12,5 +14,5 @@ public interface CustomerData {
 
     boolean delete(String idCustomer);
 
-    List<Customer> read();
+    LiveData<List<Customer>> read();
 }

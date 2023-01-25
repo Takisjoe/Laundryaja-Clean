@@ -1,5 +1,7 @@
 package com.takisjoeapp.laundryaja.feature.customer.domain.repository;
 
+import androidx.lifecycle.LiveData;
+
 import com.takisjoeapp.laundryaja.feature.customer.data.CustomerData;
 import com.takisjoeapp.laundryaja.feature.customer.data.CustomerDataImpl;
 import com.takisjoeapp.laundryaja.feature.customer.domain.entitas.Customer;
@@ -39,7 +41,7 @@ public class CustomerRepository {
             throw new IllegalArgumentException("ID customer tidak boleh kosong");
         } else {
             //TODO: implementasi untuk mengambil customer berdasarkan ID dari database
-            for (Customer customer : customerData.read()) {
+            for (Customer customer : customerData.read().getValue()) {
                 if (customer.getId().equals(id)) {
                     return customer;
                 }
@@ -84,8 +86,10 @@ public class CustomerRepository {
      *
      * @return List of customer
      */
-    public List<Customer> getAll() {
+    public LiveData<List<Customer>> getAll() {
         //TODO: implementasi untuk mengambil semua customer dari database
+        System.out.print("Memanggil getAll (CustomerRepository) {"+customerData.read().getValue().size()+"} -> ");
+
         return customerData.read();
     }
 

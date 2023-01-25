@@ -54,8 +54,8 @@ public class CustomerRepositoryTest extends TestCase {
         assertTrue("Gagal menambah",customerRepository.addCustomer(customer3));
         assertTrue("Gagal menambah",customerRepository.addCustomer(customer4));
         System.out.println(customerRepository.deleteCustomer("id-3"));
-        for (int i = 0; i < customerRepository.getAll().size(); i++) {
-            System.out.println(customerRepository.getAll().get(i).getName());
+        for (int i = 0; i < customerRepository.getAll().getValue().size(); i++) {
+            System.out.println(customerRepository.getAll().getValue().get(i).getName());
         }
     }
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "658966182607",
+    "project_id": "laundryaja-5ff66",
+    "storage_bucket": "laundryaja-5ff66.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658966182607:android:97eb2b2ac56077daa9d5ba",
+        "android_client_info": {
+          "package_name": "com.takisjoeapp.laundryaja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658966182607-5kqcu61cr1ft24d0e977o5jk82nq0cqk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzLr91aZ9JVYxm_smj3nrZdBR1qGQ084w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658966182607-5kqcu61cr1ft24d0e977o5jk82nq0cqk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

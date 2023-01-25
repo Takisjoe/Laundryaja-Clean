@@ -79,13 +79,15 @@ public class CustomerUsecaseImpl implements CustomerUseCase {
 
     @Override
     public LiveData<List<Customer>> getAllCustomers(OnGetAllCustomersCallback callback) {
-        List<Customer> customerList = customerRepository.getAll();
-        if (customerList.size() == 0) {
+        LiveData<List<Customer>> customerList = customerRepository.getAll();
+        if (customerList.getValue().size() == 0) {
             callback.onError("Tidak ada daftar customer");
         } else {
-            callback.onSuccess(customerList);
+            callback.onSuccess(customerList.getValue());
         }
-        return new MutableLiveData<>(customerList);
+        System.out.print("Memanggil getAllCustomers (CustomerUsecaseImpl) {"+customerList.getValue().size()+"} -> ");
+
+        return customerList;
     }
 
     @Override

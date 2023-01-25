@@ -24,12 +24,15 @@ public class CustomerViewModel extends ViewModel {
     }
 
     // TODO: Implement the ViewModel
-    public MutableLiveData<List<Customer>> getAllCustomers() {
+    public LiveData<List<Customer>> getAllCustomers() {
 //        fakeCustomer();
-        customerUseCase.getAllCustomers(new CustomerUseCase.OnGetAllCustomersCallback() {
+
+        return customerUseCase.getAllCustomers(new CustomerUseCase.OnGetAllCustomersCallback() {
             @Override
             public void onSuccess(List<Customer> customers) {
                 liveData.setValue(customers);
+                System.out.print("Memanggil getAllCustomers (CustomerViewModel) {"+customers.size()+"} -> ");
+
             }
 
             @Override
@@ -37,7 +40,6 @@ public class CustomerViewModel extends ViewModel {
 
             }
         });
-        return liveData;
     }
 
 

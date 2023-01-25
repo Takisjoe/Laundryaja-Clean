@@ -21,14 +21,17 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.takisjoeapp.laundryaja.R;
+import com.takisjoeapp.laundryaja.feature.customer.data.database.FirestoreCustomerData;
 import com.takisjoeapp.laundryaja.feature.customer.domain.entitas.Customer;
 import com.takisjoeapp.laundryaja.feature.customer.domain.usecase.CustomerUseCase;
 import com.takisjoeapp.laundryaja.feature.customer.present.adapter.CustomerAdapter;
 import com.takisjoeapp.laundryaja.feature.customer.present.ui.add.AddCustomerFragment;
+import com.takisjoeapp.laundryaja.util.servicelocator.ServiceLocator;
 
 import org.jetbrains.annotations.Contract;
 
 import java.util.List;
+import java.util.Map;
 
 public class CustomerFragment extends Fragment {
 
@@ -50,13 +53,38 @@ public class CustomerFragment extends Fragment {
         rvListCustomer = view.findViewById(R.id.rvListCustomer);
         fabAddCustomerPage = view.findViewById(R.id.fabAddCustomerPage);
 
+        System.out.println("Ready Boz");
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ServiceLocator.registerService("mainCustomer", getActivity());
+
         mViewModel = new ViewModelProvider(this).get(CustomerViewModel.class);
+
+        FirestoreCustomerData.refreshData(new FirestoreCustomerData.OnrefreshDataListener() {
+            @Override
+            public void onUpToDate() {
+                Toast.makeText(getContext(), "Data Diperbarui", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNew(Map<String, Object> data) {
+                
+            }
+
+            @Override
+            public void onModified(Map<String, Object> data) {
+
+            }
+
+            @Override
+            public void onRemove(Map<String, Object> data) {
+
+            }
+        });
 
         //Mendapatkan daftar secara Real-time
 //        NavController navController = Navigation.findNavController(view);
@@ -66,6 +94,7 @@ public class CustomerFragment extends Fragment {
             public void onChanged(List<Customer> customers) {
                 rvListCustomer.setLayoutManager(new LinearLayoutManager(getContext()));
                 rvListCustomer.setAdapter(new CustomerAdapter(customers));
+                System.out.print("Mendapatkan data (CustomerFragment) {"+customers.size()+"} -> ");
             }
         });
 
@@ -85,12 +114,6 @@ public class CustomerFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mViewModel.getAllCustomers().observe(getViewLifecycleOwner(), new Observer<List<Customer>>() {
-            @Override
-            public void onChanged(List<Customer> customers) {
-                rvListCustomer.setLayoutManager(new LinearLayoutManager(getContext()));
-                rvListCustomer.setAdapter(new CustomerAdapter(customers));
-            }
-        });
+
     }
 }

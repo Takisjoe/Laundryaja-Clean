@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.takisjoeapp.laundryaja.R;
+import com.takisjoeapp.laundryaja.feature.customer.data.database.FirestoreCustomerData;
 import com.takisjoeapp.laundryaja.feature.customer.domain.usecase.CustomerUseCase;
 import com.takisjoeapp.laundryaja.feature.customer.present.ui.main.CustomerFragment;
 import com.takisjoeapp.laundryaja.util.servicelocator.ServiceLocator;
@@ -43,6 +44,7 @@ public class AddCustomerFragment extends Fragment {
         ServiceLocator.registerService("addCustomer", getActivity());
         mViewModel = new ViewModelProvider(this).get(AddCustomerViewModel.class);
         // TODO: Use the ViewModel
+
 
         btnAddCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
