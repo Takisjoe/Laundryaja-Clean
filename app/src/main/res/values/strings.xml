@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Laundryaja</string>
+    <string name="add_customer_title">Tambah Customer</string>
+    <string name="add_customer_name_hint">Nama Customer</string>
+    <string name="add_customer_username_hint">Username</string>
+    <string name="add_customer_phone_hint">Nomor Telepon</string>
+    <string name="add_customer_address_hint">Alamat</string>
+    <string name="add_customer_button_text">Tambah</string>
+    <string name="add_customer_success">Berhasil menambah customer</string>
+    <string name="add_customer_failed">Gagal menambah customer</string>
+</resources>

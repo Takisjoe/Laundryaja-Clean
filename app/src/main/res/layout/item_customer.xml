@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/tv_customer_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nama Customer"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_customer_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username: username"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_customer_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Telepon: 081234567890"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_customer_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Alamat: Jl. Example, Kota Example"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider" />
+</LinearLayout>
