@@ -1,26 +1,45 @@
 package com.takisjoeapp.laundryaja.feature.customer.present;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
 import com.takisjoeapp.laundryaja.R;
-import com.takisjoeapp.laundryaja.feature.customer.present.ui.main.CustomerFragment;
+import com.takisjoeapp.laundryaja.feature.customer.data.CustomerDataImpl;
+import com.takisjoeapp.laundryaja.util.debug.ModeService;
+import com.takisjoeapp.laundryaja.util.servicelocator.ServiceLocator;
 
-public class CustomerActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
 
-    private NavController navController;
+public class CustomerActivity extends AppCompatActivity implements FragmentDataTransfer{
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
+        ServiceLocator.registerService("CustomerActivity", this);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, CustomerFragment.newInstance())
-                    .commitNow();
-        }
+
+        CustomerSharedViewModel sharedViewModel = new ViewModelProvider(this).get(CustomerSharedViewModel.class);
+//        String data = sharedViewModel.getData().getValue();
+    }
+
+
+
+    @Override
+    public void onDataTransfer(Map<String, Object> data) {
+
+    }
+
+    @Override
+    public void getDataHost(OnDataHostListener dataHostListener) {
+        HashMap map = new HashMap<>();
+        map.put("A", "Celvinanda namaku");
+        map.put("B", "Saya Ganteng");
+        dataHostListener.onData(map);
     }
 }

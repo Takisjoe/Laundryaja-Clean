@@ -13,10 +13,27 @@
         <action
             android:id="@+id/action_customerFragment_to_addCustomerFragment"
             app:destination="@id/addCustomerFragment" />
+        <action
+            android:id="@+id/action_customerFragment_to_profileCustomerFragment"
+            app:destination="@id/profileCustomerFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCustomerFragment"
         android:name="com.takisjoeapp.laundryaja.feature.customer.present.ui.add.AddCustomerFragment"
         android:label="fragment_add_customer"
         tools:layout="@layout/fragment_add_customer" />
+    <fragment
+        android:id="@+id/profileCustomerFragment"
+        android:name="com.takisjoeapp.laundryaja.feature.customer.present.ui.profile.ProfileCustomerFragment"
+        android:label="fragment_profile_customer"
+        tools:layout="@layout/fragment_profile_customer" >
+        <action
+            android:id="@+id/action_profileCustomerFragment_to_updateCustomerFragment"
+            app:destination="@id/updateCustomerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateCustomerFragment"
+        android:name="com.takisjoeapp.laundryaja.feature.customer.present.ui.update.UpdateCustomerFragment"
+        android:label="fragment_update_customer"
+        tools:layout="@layout/fragment_update_customer" />
 </navigation>

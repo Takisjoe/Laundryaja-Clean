@@ -17,6 +17,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:text="Tambah Customer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +32,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleAddCustomer">
 
@@ -47,7 +51,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilNameAddCustomer">
 
@@ -68,13 +73,16 @@
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilPhoneAddCustomer">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@+id/tilPhoneAddCustomer">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tieAddressAddCustomer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Alamat" />
+                android:focusableInTouchMode="false"
+                android:hint="Alamat"
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

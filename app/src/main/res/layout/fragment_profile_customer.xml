@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feature.customer.present.ui.profile.ProfileCustomerFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tbProfileCustomer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="30dp">
+
+<!--                                        <ImageView-->
+<!--                                            android:id="@+id/ivProfileCustomer"-->
+<!--                                            android:layout_width="130dp"-->
+<!--                                            android:layout_height="130dp"-->
+<!--                                            android:layout_marginTop="16dp"-->
+<!--                                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                                            tools:src="@mipmap/ic_person"/>-->
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ivProfileCustomer"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_marginTop="16dp"
+                        app:civ_border_color="#213814"
+                        app:civ_border_width="2dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvNameCustomer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="TextView"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/ivProfileCustomer"
+                        app:layout_constraintStart_toStartOf="@+id/ivProfileCustomer"
+                        app:layout_constraintTop_toBottomOf="@+id/ivProfileCustomer" />
+
+                    <TextView
+                        android:id="@+id/tvInfo1Customer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="TextView"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="@+id/tvNameCustomer"
+                        app:layout_constraintStart_toStartOf="@+id/tvNameCustomer"
+                        app:layout_constraintTop_toBottomOf="@+id/tvNameCustomer" />
+
+                    <TextView
+                        android:id="@+id/tvInfo2Customer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="TextView"
+                        app:layout_constraintEnd_toEndOf="@+id/tvInfo1Customer"
+                        app:layout_constraintStart_toStartOf="@+id/tvInfo1Customer"
+                        app:layout_constraintTop_toBottomOf="@+id/tvInfo1Customer" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Riwayat Laundry"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvInfo2Customer">
+
+                        <Button
+                            android:id="@+id/btnAddOrderCustomer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                            app:icon="@drawable/ic_baseline_library_add_24_green"
+                            android:text="Buat Order"
+                            android:textSize="11sp" />
+
+                        <Button
+                            android:id="@+id/btnAddReportCustomer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:text="Laporkan"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHistoryOrderCustomer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

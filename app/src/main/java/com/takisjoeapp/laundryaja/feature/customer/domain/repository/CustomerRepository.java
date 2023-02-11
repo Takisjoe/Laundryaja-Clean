@@ -1,97 +1,33 @@
 package com.takisjoeapp.laundryaja.feature.customer.domain.repository;
 
-import androidx.lifecycle.LiveData;
-
-import com.takisjoeapp.laundryaja.feature.customer.data.CustomerData;
-import com.takisjoeapp.laundryaja.feature.customer.data.CustomerDataImpl;
+import com.takisjoeapp.laundryaja.feature.customer.data.OnCustomerDataListener;
 import com.takisjoeapp.laundryaja.feature.customer.domain.entitas.Customer;
+import com.takisjoeapp.laundryaja.feature.order.data.OnOrderDataListener;
 
-import java.util.List;
-
-public class CustomerRepository {
-    private final CustomerData customerData;
-
-    public CustomerRepository() {
-        customerData = new CustomerDataImpl();
-    }
+public interface CustomerRepository {
 
     /**
-     * Tambahkan customer baru ke dalam database
+     * Method ini digunakan untuk membuat baru data customer.
      *
-     * @param customer objek customer yang akan ditambahkan
+     * @param customer untuk memberikan data yang akan dimasukan kedalam data
+     * @param create listener untuk mengetahui hasil dari proses pengambilan data
      */
-    public boolean addCustomer(Customer customer) {
-        if (customer == null) {
-            throw new IllegalArgumentException("Customer tidak boleh kosong");
-        } else {
-            //TODO: implementasi menambahkan customer ke dalam database
-            return customerData.create(customer);
-        }
-    }
+    void create(Customer customer, OnCustomerDataListener.Create create);
 
+    void update(Customer customer, OnCustomerDataListener.Update update);
+
+    void delete(Customer customer, OnCustomerDataListener.Delete delete);
 
     /**
-     * Ambil customer berdasarkan ID
+     * Method ini digunakan untuk mendapatkan daftar data customer.
      *
-     * @param id ID customer yang ingin diambil
-     * @return customer yang ditemukan
+     * @param readAll listener untuk mengetahui hasil dari proses pengambilan data
      */
-    public Customer getCustomerById(String id) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("ID customer tidak boleh kosong");
-        } else {
-            //TODO: implementasi untuk mengambil customer berdasarkan ID dari database
-            for (Customer customer : customerData.read().getValue()) {
-                if (customer.getId().equals(id)) {
-                    return customer;
-                }
-            }
-            return null;
-        }
-    }
+    void readAll(OnCustomerDataListener.ReadAll readAll);
 
+    void searchByPhoneServer(String search, OnCustomerDataListener.ReadAll readAll);
 
-    /**
-     * Update informasi customer
-     *
-     * @param customer objek customer yang akan diperbarui
-     */
-    public boolean updateCustomer(Customer customer) {
-        if (customer == null) {
-            throw new IllegalArgumentException("Customer tidak boleh kosong");
-        } else {
-            //TODO: implementasi untuk memperbarui customer di dalam database
-            return customerData.update(customer.getId(), customer);
-        }
-    }
+    void drafCustomer(Customer customer);
 
-
-    /**
-     * Hapus customer berdasarkan ID
-     *
-     * @param id ID customer yang ingin dihapus
-     */
-    public boolean deleteCustomer(String id) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("ID customer tidak boleh kosong");
-        } else {
-            //TODO: implementasi untuk menghapus customer dari database
-            return customerData.delete(id);
-        }
-    }
-
-
-    /**
-     * Mengambil semua customer dalam sistem
-     *
-     * @return List of customer
-     */
-    public LiveData<List<Customer>> getAll() {
-        //TODO: implementasi untuk mengambil semua customer dari database
-        System.out.print("Memanggil getAll (CustomerRepository) {"+customerData.read().getValue().size()+"} -> ");
-
-        return customerData.read();
-    }
-
+    void loadDraf(OnCustomerDataListener.Draf draf);
 }
-

@@ -1,6 +1,7 @@
 package com.takisjoeapp.laundryaja.util.time;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -18,7 +19,7 @@ public class TimeUtils {
      * @return long Timestamp saat ini
      */
     public static long getTimestamp() {
-        return timestamp;
+        return new Date().getTime();
     }
 
     /**
@@ -67,13 +68,12 @@ public class TimeUtils {
     /**
      * Mengembalikan tanggal dalam format yang ditentukan
      *
-     * @param date   tanggal yang ingin diubah formatnya
      * @param format Format tanggal yang diinginkan (mis. "dd-MM-yyyy")
      * @return String tanggal dalam format yang ditentukan
      */
-    public static String formatDate(Date date, String format) {
+    public static String formatDate(Long timestamp, String format) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
-        return dateFormat.format(date);
+        return dateFormat.format(timestamp);
     }
 
 
@@ -84,7 +84,7 @@ public class TimeUtils {
      * @param timeInMillis waktu yang ingin dihitung relatifnya dalam milisecond
      * @return waktu relatif dalam format string
      */
-    public static  String getRelativeLastTime(long timeInMillis) {
+    public static String getRelativeLastTime(long timeInMillis) {
         long currentTime = System.currentTimeMillis();
         long diff = currentTime - timeInMillis;
         if (diff < MINUTE_MILLIS) {
@@ -122,20 +122,59 @@ public class TimeUtils {
         long now = System.currentTimeMillis();
         long diff = timeInMillis - now;
 
-        if (diff < MINUTE_MILLIS) {
-            return "1 menit lagi";
-        } else if (diff < HOUR_MILLIS) {
-            return "1 jam lagi";
-        } else if (diff < DAY_MILLIS) {
-            return "hari ini";
-        } else if (diff < 2 * DAY_MILLIS) {
-            return "besok";
-        } else if (diff < WEEK_MILLIS) {
-            return (diff / DAY_MILLIS) + " hari lagi";
-        } else if (diff < MONTH_MILLIS) {
-            return (diff / WEEK_MILLIS) + " minggu lagi";
+        if (diff >= 0) {
+            if (diff < MINUTE_MILLIS) {
+                return "1 menit lagi";
+            } else if (diff < HOUR_MILLIS) {
+                return (diff / MINUTE_MILLIS) + " menit lagi";
+            } else if (diff < DAY_MILLIS) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(timeInMillis);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                String formattedDate = dateFormat.format(calendar.getTime());
+                return "Hari ini, pukul " + formattedDate;
+            } else if (diff < 2 * DAY_MILLIS) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(timeInMillis);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                String formattedDate = dateFormat.format(calendar.getTime());
+                return "Besok, pukul " + formattedDate;
+            } else if (diff < WEEK_MILLIS) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(timeInMillis);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM, HH:mm");
+                String formattedDate = dateFormat.format(calendar.getTime());
+                return formattedDate;
+            } else if (diff < MONTH_MILLIS) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(timeInMillis);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM, HH:mm");
+                String formattedDate = dateFormat.format(calendar.getTime());
+                return formattedDate;
+            } else {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(timeInMillis);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+                String formattedDate = dateFormat.format(calendar.getTime());
+                return formattedDate;
+            }
         } else {
-            return (diff / MONTH_MILLIS) + " bulan lagi";
+            diff = -diff;
+            if (diff < MINUTE_MILLIS) {
+                return "Terlambat beberapa detik yang lalu";
+            } else if (diff < HOUR_MILLIS) {
+                return "Terlambat " + (diff / MINUTE_MILLIS) + " menit yang lalu";
+            } else if (diff < DAY_MILLIS) {
+                return "Terlambat " + (diff / HOUR_MILLIS) + " jam yang lalu";
+            } else if (diff < 2 * DAY_MILLIS) {
+                return "kemarin";
+            } else if (diff < WEEK_MILLIS) {
+                return "Terlambat " + (diff / DAY_MILLIS) + " hari yang lalu";
+            } else if (diff < MONTH_MILLIS) {
+                return "Terlambat " + (diff / WEEK_MILLIS) + " minggu yang lalu";
+            } else {
+                return "Terlambat " + (diff / MONTH_MILLIS) + " bulan yang lalu";
+            }
         }
     }
 }
